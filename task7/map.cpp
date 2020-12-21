@@ -19,22 +19,22 @@ std::map<int, int> order_number(int num_number) {
     return map;
 }
 
-std::map<double, double> rand_number(int num_number) {
+std::map<double, double> pseudo_rand_number(int num_number) {
     std::map<double, double> map; 
     double num;
     for (int i = 0; i < num_number; i++) {
-        num = rand() / RAND_MAX - 0.5 * i;
+        num = (rand() / RAND_MAX - 0.5) * i;
         map.insert({num, num});
     }
     return map;
 }
 
-std::map<double, double> hint_rand_number(int num_number) {
+std::map<double, double> hint_pseudo_rand_number(int num_number) {
     std::map<double, double> map; 
     double num;
     double nmax, nmin = 0; 
     for (int i = 0; i < num_number; i++) {
-        num = rand() / RAND_MAX - 0.5 * i;
+        num = (rand() / RAND_MAX - 0.5) * i;
         if (num > nmax) {
             nmax = num;
             map.insert(map.end(), {num, num});
@@ -72,19 +72,19 @@ int main(int argc, char const *argv[])
     srand(0);
     start = std::chrono::system_clock::now();
     for (int i = 0; i < num_iter; i++) {
-        rand_number(num_number);
+        pseudo_rand_number(num_number);
     }
     end = std::chrono::system_clock::now();
     elapsed = end - start;
-    std::cout << "Elapsed time rand order number: " << elapsed.count() << "s" << std::endl;
+    std::cout << "Elapsed time pseudo rand number: " << elapsed.count() << "s" << std::endl;
 
     srand(0);
     start = std::chrono::system_clock::now();
     for (int i = 0; i < num_iter; i++) {
-        hint_rand_number(num_number);
+        hint_pseudo_rand_number(num_number);
     }
     end = std::chrono::system_clock::now();
     elapsed = end - start;
-    std::cout << "Elapsed time rand hint order number: " << elapsed.count() << "s" << std::endl;
+    std::cout << "Elapsed time hint pseudo rand number: " << elapsed.count() << "s" << std::endl;
 	return 0;
 }
